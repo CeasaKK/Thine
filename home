@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aryan Malhotra</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --border: rgba(255,255,255,0.07);
+      --text-primary: #f0ede8;
+      --text-secondary: rgba(240, 237, 232, 0.45);
+      --accent: #e8e0d4;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(232,224,212,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3.5rem 3rem;
+      max-width: 560px;
+      width: calc(100% - 3rem);
+      text-align: center;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 40px 80px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      opacity: 0;
+      transform: translateY(24px);
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,224,212,0.3), transparent);
+      border-radius: 1px;
+    }
+
+    .eyebrow {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: rise 0.8s ease 0.5s forwards;
+    }
+
+    .name-block {
+      margin-bottom: 1.6rem;
+      opacity: 0;
+      animation: rise 0.8s ease 0.7s forwards;
+    }
+
+    .hi {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .name-link {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .name-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .name-link:hover {
+      color: var(--accent);
+    }
+
+    .name-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: var(--border);
+      margin: 1.8rem auto;
+      opacity: 0;
+      animation: rise 0.8s ease 0.85s forwards;
+    }
+
+    .message {
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      animation: rise 0.8s ease 1s forwards;
+    }
+
+    .message .thine {
+      color: var(--text-primary);
+      font-weight: 400;
+    }
+
+    .message .connect {
+      color: var(--accent);
+      font-style: italic;
+      font-family: 'DM Serif Display', serif;
+    }
+
+    .linkedin-hint {
+      margin-top: 0.6rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240, 237, 232, 0.2);
+      opacity: 0;
+      animation: rise 0.8s ease 1.1s forwards;
+    }
+
+    .footer-tag {
+      margin-top: 2.4rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: rise 0.8s ease 1.3s forwards;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 6px rgba(232,224,212,0.4);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="name-block">
+      <span class="hi">Hi, I am</span>
+      <a class="name-link" href="https://www.linkedin.com/in/aryan-malhotra-profile/" target="_blank" rel="noopener">Aryan Malhotra</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="message">
+      And if you work at <span class="thine">Thine</span> —<br/>
+      I've already hit <span class="connect">connect</span> on LinkedIn.<br/>
+      The rest is yours.
+    </p>
+
+    <div class="footer-tag">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</body>
+</html>
